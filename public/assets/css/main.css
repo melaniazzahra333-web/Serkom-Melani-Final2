@@ -1,0 +1,1207 @@
+/*
+========================================================================
+   BOOTSTRAP 5 ADMIN TEMPLATE - SPARK ADMIN
+   DESIGN SYSTEM & CUSTOM STYLESHEET
+   Developed with premium UI/UX standards
+
+   Template Name: Spark Admin
+   Version: 1.0
+   Author: Spark Admin Team
+   Email: hello.sparkadmin@gmail.com
+   URL: https://sparkadmin.web.id
+========================================================================
+*/
+
+/* ---------------------------------------------------------------------
+   TABLE OF CONTENTS
+   ---------------------------------------------------------------------
+   1. Google Fonts CDN Import (Plus Jakarta Sans)
+   2. Design System Variables
+   3. Base Overrides & Typography
+   4. Sidebar Component (.sidebar-wrapper)
+   5. Main Wrapper Layout
+   6. Custom Header / Navbar Component
+   7. Page Title & Controls Row
+   8. Cards & Styling Components
+   9. Custom List (Transaction List Table replacement)
+   10. Custom Progress & Bar Chart Custom Layouts
+   11. Right Panel Component & Layout
+   12. Responsive Adjustments
+   13. Login Page Styles (.login-wrapper)
+   14. Flatpickr Theme Customization (Spark Admin Styles)
+   15. Dropdown Component Styles (Reusable)
+   16. Footer Component Styles
+   17. Navbar Profile Dropdown Styles
+   18. Reusable Premium Table Component
+   19. Custom Premium Form Elements Design System
+   20. Reusable Custom Buttons & Alerts Design System
+   21. Error 404 Page Styling Layout
+   22. Keyframe Animations & Overlays
+   23. Reusable Helper & Utility Classes (Zero Inline Style Policy)
+   24. Transaction List Component
+--------------------------------------------------------------------- */
+
+/* =========================================================
+   MAIN CSS
+   Login + Admin
+   ========================================================= */
+
+/* =========================================================
+   1. DASAR & WARNA
+   ========================================================= */
+:root{
+    --bs-body-bg:#F2EFE7;
+    --bs-body-font-family:'Plus Jakarta Sans',sans-serif;
+
+    --brand-forest-dark:#3368A0;
+    --brand-forest-medium:#3368A0;
+    --brand-forest-light:#66A3BF;
+
+    --brand-lime:#C8DFDB;
+    --brand-lime-hover:#66A3BF;
+    --brand-lime-translucent:rgba(102,163,191,.15);
+
+    --text-main:#244D73;
+    --text-muted-green:#66808F;
+    --text-sidebar-muted:#DDEBE9;
+
+    --card-background:#FFFFFF;
+    --border-light:#DCE8E6;
+    --border-dark-green:rgba(255,255,255,.15);
+
+    --sys-green:#22C55E;
+    --sys-red:#EF4444;
+    --sys-orange:#F97316;
+
+    /* WARNA YANG DIPAKAI CSS ADMIN */
+    --primary:#3368A0;
+    --primary-light:#3368A0;
+    --soft:#C8DFDB;
+    --muted:#66808F;
+
+    /* UKURAN */
+    --sidebar-width:280px;
+    --navbar-height:80px;
+
+    --radius-xxl:24px;
+    --radius-xl:18px;
+    --radius-lg:12px;
+    --radius-md:10px;
+    --radius-sm:6px;
+
+    --shadow-sm:0 2px 8px rgba(11,19,15,.04);
+    --shadow-md:0 10px 30px rgba(11,19,15,.06);
+    --shadow-lg:0 20px 50px rgba(11,19,15,.08);
+}
+
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:var(--bs-body-font-family);
+    background:#F7F9FC;
+    color:#334155;
+}
+
+a{text-decoration:none}
+
+/* Menyembunyikan scrollbar halaman, tetapi tetap bisa scroll */
+/* html {
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+} */
+/* =========================================================
+   2. LOGIN
+   BAGIAN INI DIPERTAHANKAN
+   ========================================================= */
+
+.login-wrapper{
+    min-height:100vh; /* Membuat tinggi minimum mengikuti tinggi layar */
+    display:flex; /* Mengaktifkan tata letak flexbox */
+    align-items:center; /* Memusatkan card login secara vertikal */
+    justify-content:center; /* Memusatkan card login secara horizontal */
+    background-color:var(--bs-body-bg); /* Menggunakan warna latar dari variabel Bootstrap */
+    padding:1.5rem; /* Memberikan jarak antara isi dan tepi layar */
+    position:relative; /* Menjadi acuan posisi elemen di dalamnya */
+    overflow:hidden; /* Menyembunyikan elemen yang keluar dari area login */
+}
+
+/* Mengatur bentuk dekorasi lingkaran di latar halaman login */
+.login-bg-shape{
+    position:absolute; /* Memungkinkan bentuk ditempatkan secara bebas */
+    width:300px; /* Mengatur lebar lingkaran */
+    height:300px; /* Mengatur tinggi lingkaran */
+    background:radial-gradient(circle,var(--brand-lime-translucent) 0%,rgba(180,241,5,0) 70%); /* Membuat gradasi dari warna hijau transparan ke transparan */
+    border-radius:50%; /* Membuat elemen berbentuk lingkaran */
+    pointer-events:none; /* Mencegah bentuk dekorasi menghalangi klik */
+    z-index:0; /* Menempatkan dekorasi di belakang card login */
+}
+
+/* Mengatur posisi lingkaran dekorasi pertama di kiri atas */
+.login-bg-shape-1{top:-50px;left:-50px} /* Menggeser lingkaran ke atas dan ke kiri */
+
+/* Mengatur ukuran dan posisi lingkaran dekorasi kedua */
+.login-bg-shape-2{
+    bottom:-100px; /* Menggeser lingkaran melewati bagian bawah */
+    right:-50px; /* Menggeser lingkaran melewati sisi kanan */
+    width:400px; /* Memperbesar lebar lingkaran kedua */
+    height:400px; /* Memperbesar tinggi lingkaran kedua */
+}
+
+/* =========================
+   2. CARD LOGIN
+========================= */
+
+/* Mengatur tampilan kotak utama formulir login */
+.login-card{
+    background-color:var(--card-background); /* Mengatur warna latar card */
+    border:1px solid var(--border-light); /* Memberikan garis tepi tipis */
+    border-radius:var(--radius-xxl); /* Membulatkan sudut card */
+    padding:2.5rem; /* Memberikan ruang di dalam card */
+    width:100%; /* Membuat lebar card mengikuti area yang tersedia */
+    max-width:450px; /* Membatasi lebar maksimal card menjadi 450px */
+    box-shadow:var(--shadow-lg); /* Memberikan bayangan pada card */
+    z-index:1; /* Menempatkan card di depan dekorasi */
+    position:relative; /* Menjadi acuan posisi elemen di dalam card */
+    transition:transform .3s ease,box-shadow .3s ease; /* Menghaluskan perubahan posisi dan bayangan */
+}
+
+/* Memberikan efek saat kursor diarahkan ke card login */
+.login-card:hover{
+    transform:translateY(-2px); /* Mengangkat card sedikit ke atas */
+    box-shadow:0 30px 60px rgba(11,19,15,.12); /* Memperbesar bayangan card */
+}
+
+/* =========================
+   3. IDENTITAS BRAND LOGIN
+========================= */
+
+/* Mengatur tampilan nama atau identitas pada bagian login */
+.login-brand{
+    display:flex; /* Menyusun ikon dan tulisan secara fleksibel */
+    align-items:center; /* Menyejajarkan ikon dan tulisan secara vertikal */
+    justify-content:center; /* Memusatkan identitas secara horizontal */
+    gap:.75rem; /* Memberikan jarak antara ikon dan tulisan */
+    font-size:1.5rem; /* Mengatur ukuran tulisan identitas */
+    font-weight:800; /* Membuat tulisan sangat tebal */
+    color:var(--brand-forest-dark); /* Menggunakan warna utama gelap dari variabel */
+    margin-bottom:1.5rem; /* Memberikan jarak di bawah identitas */
+    text-decoration:none; /* Menghilangkan garis bawah jika identitas berupa link */
+    transition:color .3s ease; /* Menghaluskan perubahan warna tulisan */
+}
+
+/* Mengatur ikon pada identitas login */
+.login-brand i{
+    color:var(--brand-forest-medium); /* Mengatur warna ikon */
+    font-size:1.75rem; /* Mengatur ukuran ikon */
+    animation:rotateLogo 15s linear infinite; /* Menjalankan animasi rotateLogo selama 15 detik secara berulang */
+    transition:color .3s ease; /* Menghaluskan perubahan warna ikon */
+}
+
+/* Mengubah warna identitas dan ikonnya ketika diarahkan */
+.login-brand:hover,.login-brand:hover i{color:var(--brand-lime-hover)} /* Menggunakan warna aksen saat hover */
+
+/* =========================
+   4. JUDUL DAN SUBJUDUL LOGIN
+========================= */
+
+/* Mengatur tampilan judul utama pada form login */
+.login-title{
+    font-size:1.5rem; /* Mengatur ukuran judul */
+    font-weight:800; /* Membuat judul sangat tebal */
+    color:var(--text-main); /* Menggunakan warna teks utama */
+    text-align:center; /* Memusatkan tulisan judul */
+    margin-bottom:.35rem; /* Memberikan jarak kecil di bawah judul */
+}
+
+/* Mengatur tampilan teks pendukung di bawah judul login */
+.login-subtitle{
+    font-size:.875rem; /* Mengatur ukuran teks pendukung */
+    color:var(--text-muted-green); /* Menggunakan warna teks sekunder */
+    text-align:center; /* Memusatkan teks pendukung */
+    margin-bottom:2rem; /* Memberikan jarak sebelum formulir */
+}
+
+/* =========================
+   5. GRUP FORMULIR LOGIN
+========================= */
+
+/* Mengatur jarak dan posisi setiap kelompok input */
+.login-form-group{
+    margin-bottom:1.25rem; /* Memberikan jarak antar kelompok input */
+    position:relative; /* Menjadi acuan posisi elemen di dalam grup */
+}
+
+/* Mengatur tampilan label pada setiap input */
+.login-form-label{
+    font-size:.8rem; /* Mengatur ukuran label */
+    font-weight:700; /* Membuat label tebal */
+    color:var(--text-main); /* Menggunakan warna teks utama */
+    margin-bottom:.5rem; /* Memberikan jarak di bawah label */
+    display:block; /* Membuat label berada pada baris tersendiri */
+}
+
+/* Mengatur wadah input dan ikon di dalamnya */
+.login-input-group{
+    position:relative; /* Menjadi acuan posisi ikon input */
+    display:flex; /* Mengatur input dan elemen pendukung dengan flexbox */
+    align-items:center; /* Memusatkan elemen secara vertikal */
+}
+
+/* Mengatur posisi ikon di sebelah kiri input */
+.login-input-group i.input-icon{
+    position:absolute; /* Menempatkan ikon di atas area input */
+    left:1.25rem; /* Mengatur jarak ikon dari sisi kiri */
+    color:var(--text-muted-green); /* Mengatur warna ikon */
+    font-size:1.1rem; /* Mengatur ukuran ikon */
+    pointer-events:none; /* Mencegah ikon menghalangi klik pada input */
+}
+
+/* Mengatur tampilan dasar kolom input login */
+.login-input{
+    width:100%; /* Membuat input memenuhi lebar wadah */
+    background-color:var(--bs-body-bg); /* Menggunakan warna latar dari Bootstrap */
+    border:1px solid var(--border-light); /* Memberikan garis tepi input */
+    border-radius:var(--radius-lg); /* Membulatkan sudut input */
+    padding:.8rem 1.25rem .8rem 2.85rem; /* Mengatur jarak teks di dalam input */
+    font-size:.9rem; /* Mengatur ukuran teks input */
+    font-weight:600; /* Membuat teks input agak tebal */
+    color:var(--text-main); /* Mengatur warna teks yang diketik */
+    outline:none; /* Menghilangkan garis outline bawaan browser */
+    transition:all .25s ease; /* Menghaluskan perubahan semua properti yang berubah */
+}
+
+/* Menambahkan ruang di sebelah kanan input password */
+.login-input-password{padding-right:2.85rem} /* Menyediakan tempat untuk tombol tampilkan password */
+
+/* Mengatur tampilan input ketika dipilih atau sedang aktif */
+.login-input:focus{
+    background:#fff; /* Mengubah latar input menjadi putih */
+    border-color:var(--brand-forest-medium); /* Mengubah warna garis tepi input */
+    box-shadow:0 0 0 4px var(--brand-lime-translucent); /* Memberikan efek sorotan di sekitar input */
+}
+
+/* Mengatur tombol untuk menampilkan atau menyembunyikan password */
+.password-toggle-btn{
+    position:absolute; /* Menempatkan tombol di dalam area input password */
+    right:1.25rem; /* Mengatur jarak tombol dari sisi kanan */
+    background:none; /* Menghilangkan warna latar tombol */
+    border:none; /* Menghilangkan garis tepi tombol */
+    color:var(--text-muted-green); /* Mengatur warna ikon tombol */
+    cursor:pointer; /* Mengubah kursor menjadi penunjuk */
+    padding:0; /* Menghilangkan jarak bawaan tombol */
+    display:flex; /* Menyusun ikon dengan flexbox */
+    align-items:center; /* Memusatkan ikon secara vertikal */
+    font-size:1.1rem; /* Mengatur ukuran ikon tombol */
+}
+
+/* Mengubah warna tombol password ketika diarahkan */
+.password-toggle-btn:hover{color:var(--brand-forest-medium)} /* Menonjolkan tombol saat hover */
+
+/* =========================
+   6. OPSI LOGIN
+========================= */
+
+/* Mengatur susunan opsi tambahan di bawah input */
+.login-options{
+    display:flex; /* Menyusun opsi secara fleksibel */
+    align-items:center; /* Menyejajarkan opsi secara vertikal */
+    justify-content:space-between; /* Memisahkan opsi kiri dan kanan */
+    margin-bottom:1.75rem; /* Memberikan jarak sebelum tombol login */
+    font-size:.825rem; /* Mengatur ukuran tulisan opsi */
+}
+
+/* Mengatur label kontrol seperti checkbox */
+.custom-control-label{
+    cursor:pointer; /* Menunjukkan bahwa label dapat diklik */
+    font-weight:600; /* Membuat tulisan label agak tebal */
+    color:var(--text-muted-green); /* Mengatur warna tulisan label */
+    display:flex; /* Menyusun label dan kontrol secara fleksibel */
+    align-items:center; /* Menyejajarkan isi label secara vertikal */
+    gap:.5rem; /* Memberikan jarak antara kontrol dan teks */
+    user-select:none; /* Mencegah teks label terseleksi saat diklik */
+}
+
+/* Mengatur bentuk checkbox khusus */
+.custom-checkbox-input{
+    width:18px; /* Mengatur lebar checkbox */
+    height:18px; /* Mengatur tinggi checkbox */
+    border-radius:var(--radius-sm); /* Membulatkan sudut checkbox */
+    border:2px solid var(--text-muted-green); /* Memberikan garis tepi checkbox */
+    appearance:none; /* Menghilangkan tampilan bawaan checkbox browser */
+    outline:none; /* Menghilangkan outline bawaan */
+    cursor:pointer; /* Menunjukkan checkbox dapat diklik */
+    position:relative; /* Menjadi acuan posisi tanda centang */
+    background:transparent; /* Membuat latar checkbox transparan */
+}
+
+/* Mengubah warna checkbox ketika dicentang */
+.custom-checkbox-input:checked{
+    background-color:var(--brand-forest-medium); /* Memberikan latar hijau pada checkbox aktif */
+    border-color:var(--brand-forest-medium); /* Menyesuaikan warna garis tepi checkbox aktif */
+}
+
+/* Membuat tanda centang pada checkbox aktif */
+.custom-checkbox-input:checked::before{
+    content:"\f272"; /* Menampilkan karakter ikon berdasarkan kode font */
+    font-family:"bootstrap-icons"; /* Menggunakan font ikon Bootstrap Icons */
+    font-size:.7rem; /* Mengatur ukuran tanda centang */
+    color:#fff; /* Membuat tanda centang berwarna putih */
+    position:absolute; /* Menempatkan tanda centang di dalam checkbox */
+    top:50%; /* Memindahkan tanda centang ke bagian tengah secara vertikal */
+    left:50%; /* Memindahkan tanda centang ke bagian tengah secara horizontal */
+    transform:translate(-50%,-50%); /* Menyempurnakan posisi tengah tanda centang */
+}
+
+/* Mengatur tampilan link lupa password */
+.forgot-password-link{
+    color:var(--brand-forest-medium); /* Mengatur warna link */
+    font-weight:600; /* Membuat tulisan agak tebal */
+    text-decoration:none; /* Menghilangkan garis bawah link */
+}
+
+/* Mengatur tampilan link lupa password ketika diarahkan */
+.forgot-password-link:hover{
+    color:var(--brand-lime-hover); /* Mengubah warna link saat hover */
+    text-decoration:underline; /* Menampilkan garis bawah saat diarahkan */
+}
+
+/* =========================
+   7. TOMBOL LOGIN
+========================= */
+
+/* Mengatur tampilan utama tombol login */
+.btn-login{
+    background-color:var(--brand-forest-medium); /* Memberikan warna latar tombol */
+    color:#fff; /* Membuat teks tombol berwarna putih */
+    border:none; /* Menghilangkan garis tepi tombol */
+    border-radius:var(--radius-lg); /* Membulatkan sudut tombol */
+    padding:.85rem; /* Memberikan ruang dalam tombol */
+    font-weight:700; /* Membuat teks tombol tebal */
+    font-size:.95rem; /* Mengatur ukuran teks tombol */
+    width:100%; /* Membuat tombol memenuhi lebar wadah */
+    box-shadow:var(--shadow-sm); /* Memberikan bayangan tipis pada tombol */
+    transition:all .25s ease; /* Menghaluskan perubahan tampilan tombol */
+    display:flex; /* Menyusun teks dan ikon secara fleksibel */
+    align-items:center; /* Menyejajarkan isi tombol secara vertikal */
+    justify-content:center; /* Memusatkan isi tombol secara horizontal */
+    gap:.5rem; /* Memberikan jarak antara teks dan ikon */
+}
+
+/* Memberikan efek saat kursor diarahkan ke tombol login */
+.btn-login:hover{
+    background-color:var(--brand-forest-dark); /* Mengubah latar menjadi warna lebih gelap */
+    color:#fff; /* Mempertahankan teks berwarna putih */
+    transform:translateY(-1px); /* Mengangkat tombol sedikit ke atas */
+}
+
+/* Mengatur ukuran dan transisi ikon di tombol login */
+.btn-login i{
+    font-size:1rem; /* Mengatur ukuran ikon tombol */
+    transition:transform .25s ease; /* Menghaluskan gerakan ikon */
+}
+
+/* Menggeser ikon ke kanan ketika tombol login diarahkan */
+.btn-login:hover i{transform:translateX(3px)} /* Memberikan efek gerak pada ikon */
+
+/* =========================
+   8. PEMISAH FORMULIR
+========================= */
+
+/* Mengatur garis pemisah dengan teks di tengahnya */
+.login-divider{
+    display:flex; /* Menyusun teks dan garis secara fleksibel */
+    align-items:center; /* Menyejajarkan teks dan garis secara vertikal */
+    text-align:center; /* Memusatkan teks */
+    color:var(--text-muted-green); /* Mengatur warna teks pemisah */
+    margin:1.75rem 0; /* Memberikan jarak atas dan bawah */
+    font-size:.75rem; /* Mengatur ukuran teks pemisah */
+    font-weight:700; /* Membuat teks pemisah tebal */
+    text-transform:uppercase; /* Mengubah teks menjadi huruf kapital */
+    letter-spacing:.05em; /* Memberikan jarak antarhuruf */
+    opacity:.6; /* Membuat teks pemisah sedikit transparan */
+}
+
+/* Membuat garis sebelum dan sesudah teks pemisah */
+.login-divider::before,.login-divider::after{
+    content:''; /* Membuat elemen garis kosong */
+    flex:1; /* Membuat garis memenuhi ruang yang tersedia */
+    border-bottom:1px solid var(--border-light); /* Memberikan garis tipis di bawah elemen */
+}
+
+/* Memberikan jarak antara garis kiri dan teks pemisah */
+.login-divider:not(:empty)::before{margin-right:.75rem}
+
+/* Memberikan jarak antara teks pemisah dan garis kanan */
+.login-divider:not(:empty)::after{margin-left:.75rem}
+
+/* Mengatur tampilan tombol login sosial dalam bentuk grid dua kolom */
+.social-login-grid{
+    display:grid; /* Menggunakan tata letak grid */
+    grid-template-columns:1fr 1fr; /* Membagi area menjadi dua kolom sama besar */
+    gap:.75rem; /* Memberikan jarak antar tombol */
+    margin-bottom:1.75rem; /* Memberikan jarak di bawah kumpulan tombol */
+}
+
+/* Mengatur tampilan dasar tombol login sosial */
+.btn-social{
+    background:#fff; /* Memberikan latar putih */
+    border:1px solid var(--border-light); /* Memberikan garis tepi tombol */
+    color:var(--text-main); /* Mengatur warna tulisan tombol */
+    border-radius:var(--radius-lg); /* Membulatkan sudut tombol */
+    padding:.7rem; /* Memberikan ruang di dalam tombol */
+    font-weight:600; /* Membuat tulisan agak tebal */
+    font-size:.85rem; /* Mengatur ukuran tulisan */
+    display:flex; /* Menyusun ikon dan tulisan secara fleksibel */
+    align-items:center; /* Menyejajarkan ikon dan tulisan secara vertikal */
+    justify-content:center; /* Memusatkan isi tombol */
+    gap:.5rem; /* Memberikan jarak antara ikon dan tulisan */
+    box-shadow:var(--shadow-sm); /* Memberikan bayangan tipis */
+}
+
+/* Mengubah latar dan garis tepi tombol sosial saat diarahkan */
+.btn-social:hover{
+    background:var(--bs-body-bg); /* Mengubah warna latar saat hover */
+    border-color:rgba(0,0,0,.1); /* Mengubah warna garis tepi */
+}
+
+/* Mengatur ukuran ikon pada tombol sosial */
+.btn-social i{font-size:1.1rem} /* Menentukan ukuran ikon */
+
+/* Mengatur teks bagian bawah formulir login */
+.login-footer-text{
+    text-align:center; /* Memusatkan teks */
+    font-size:.85rem; /* Mengatur ukuran teks */
+    color:var(--text-muted-green); /* Menggunakan warna teks sekunder */
+    font-weight:600; /* Membuat tulisan agak tebal */
+    margin-bottom:0; /* Menghilangkan jarak bawah */
+}
+
+/* Mengatur warna dan ketebalan link pada teks footer login */
+.login-footer-text a{
+    color:var(--brand-forest-medium); /* Mengatur warna link */
+    font-weight:700; /* Membuat tulisan link tebal */
+}
+
+/* Mengubah tampilan link footer ketika diarahkan */
+.login-footer-text a:hover{
+    color:var(--brand-lime-hover); /* Mengubah warna link saat hover */
+    text-decoration:underline; /* Menampilkan garis bawah link */
+}
+
+/* Mengatur animasi putaran logo */
+@keyframes rotateLogo{
+    from{transform:rotate(0deg)} /* Memulai animasi dari posisi awal */
+    to{transform:rotate(360deg)} /* Memutar logo satu putaran penuh */
+}
+
+
+/* =========================================================
+   3. ADMIN - DASAR
+   ========================================================= */
+
+/* Mengatur pembungkus utama halaman admin */
+.main-wrapper{
+    min-height:100vh; /* Membuat tinggi minimum mengikuti tinggi layar */
+    margin-left:var(--sidebar-width); /* Memberikan ruang untuk sidebar */
+    transition:.3s; /* Menghaluskan perubahan tampilan */
+    display:flex; /* Menggunakan tata letak flexbox */
+    flex-direction:column; /* Menyusun isi secara vertikal */
+}
+
+/* Mengatur area konten utama admin */
+.main-content{
+    padding:25px; /* Memberikan jarak di sekitar konten */
+    flex:1; /* Membuat konten mengisi ruang yang tersedia */
+}
+
+/* Mengatur jarak dalam area isi halaman */
+.page-content{padding:25px} /* Memberikan ruang di dalam konten */
+
+
+/* =========================================================
+   4. SIDEBAR
+   ========================================================= */
+
+/* Mengatur posisi dan tampilan sidebar utama */
+.sidebar-wrapper{
+    position:fixed; /* Mempertahankan sidebar pada posisi tetap */
+    top:0; /* Meletakkan sidebar dari bagian atas layar */
+    left:0; /* Meletakkan sidebar di sisi kiri layar */
+    width:var(--sidebar-width); /* Mengatur lebar sidebar melalui variabel */
+    height:100vh; /* Membuat sidebar setinggi layar */
+    background:var(--primary); /* Menggunakan warna utama sidebar */
+    color:#fff; /* Membuat warna teks putih */
+    z-index:1030; /* Menentukan lapisan sidebar */
+    overflow-y:auto; /* Mengaktifkan scroll vertikal jika isi terlalu panjang */
+    transition:.3s; /* Menghaluskan perubahan tampilan sidebar */
+    display:flex; /* Menggunakan tata letak flexbox */
+    flex-direction:column; /* Menyusun isi sidebar secara vertikal */
+}
+
+/* Mengatur tata letak identitas atau logo sidebar */
+.sidebar-brand{
+    height:70px; /* Mengatur tinggi area identitas */
+    padding:12px 18px; /* Memberikan jarak di dalam area identitas */
+    display:flex; /* Menyusun logo dan tulisan secara fleksibel */
+    align-items:center; /* Menyejajarkan logo dan tulisan secara vertikal */
+    gap:10px; /* Memberikan jarak antara logo dan tulisan */
+    border-bottom:1px solid rgba(255,255,255,.12); /* Memberikan garis pemisah di bawah identitas */
+}
+
+/* Mengatur ukuran logo pada sidebar */
+.sidebar-brand-logo{
+    width:42px; /* Mengatur lebar logo */
+    height:42px; /* Mengatur tinggi logo */
+    object-fit:contain; /* Menjaga proporsi logo agar tidak terpotong */
+}
+
+/* Mengatur tulisan identitas di samping logo sidebar */
+.sidebar-brand span{
+    color:#fff; /* Membuat tulisan berwarna putih */
+    font-size:17px; /* Mengatur ukuran tulisan */
+    font-weight:700; /* Membuat tulisan tebal */
+}
+
+/* Mengatur jarak pada setiap kelompok menu sidebar */
+.sidebar-menu-section{padding:18px 12px 5px} /* Memberikan ruang di sekitar kelompok menu */
+
+/* Mengatur tampilan judul kelompok menu sidebar */
+.sidebar-menu-title{
+    padding:0 12px 8px; /* Mengatur jarak di sekitar judul menu */
+    color:rgba(255,255,255,.55); /* Membuat teks judul lebih transparan */
+    font-size:11px; /* Mengatur ukuran tulisan */
+    font-weight:700; /* Membuat judul tebal */
+    text-transform:uppercase; /* Mengubah tulisan menjadi huruf kapital */
+}
+
+/* Menghilangkan bullet dan jarak bawaan daftar menu */
+.sidebar-menu-list{
+    list-style:none; /* Menghilangkan tanda bullet daftar */
+    padding:0; /* Menghilangkan padding bawaan */
+    margin:0; /* Menghilangkan margin bawaan */
+}
+
+/* Memberikan jarak di antara item menu sidebar */
+.sidebar-menu-item{margin-bottom:4px} /* Mengatur jarak bawah setiap item */
+
+/* Mengatur bentuk, warna, dan tata letak link menu sidebar */
+.sidebar-menu-link{
+    display:flex; /* Menyusun ikon dan teks secara fleksibel */
+    align-items:center; /* Menyejajarkan ikon dan teks secara vertikal */
+    gap:11px; /* Memberikan jarak antara ikon dan teks */
+    padding:11px 13px; /* Memberikan ruang di dalam link */
+    border-radius:9px; /* Membulatkan sudut link */
+    color:rgba(255,255,255,.85); /* Mengatur warna teks putih transparan */
+    font-size:14px; /* Mengatur ukuran teks menu */
+    transition:.2s; /* Menghaluskan perubahan tampilan menu */
+}
+
+/* Mengatur lebar dan posisi ikon pada menu sidebar */
+.sidebar-menu-link i{
+    width:20px; /* Menyamakan lebar area ikon */
+    text-align:center; /* Memusatkan ikon */
+}
+
+/* Memberikan tampilan berbeda pada menu saat diarahkan atau aktif */
+.sidebar-menu-link:hover,
+.sidebar-menu-link.active{
+    background:rgba(255,255,255,.14); /* Memberikan latar transparan pada menu */
+    color:#fff; /* Membuat teks menu menjadi putih */
+}
+
+/* Mengatur tata letak tombol dropdown sidebar */
+.sidebar-dropdown{
+    display:flex; /* Menyusun teks dan tanda panah secara fleksibel */
+    align-items:center; /* Menyejajarkan isi secara vertikal */
+    justify-content:space-between; /* Memisahkan teks dan tanda panah */
+    width:100%; /* Membuat tombol memenuhi lebar sidebar */
+    border:0; /* Menghilangkan garis tepi tombol */
+    background:none; /* Menghilangkan latar bawaan tombol */
+    color:inherit; /* Mengikuti warna dari elemen induk */
+}
+
+/* Menghaluskan gerakan tanda panah dropdown */
+.sidebar-dropdown .caret{transition:.2s} /* Membuat rotasi panah lebih halus */
+
+/* Memutar tanda panah saat dropdown dibuka */
+.sidebar-dropdown[aria-expanded="true"] .caret{
+    transform:rotate(180deg); /* Memutar panah 180 derajat */
+}
+
+/* Mengatur area profil pengguna pada sidebar */
+.sidebar-profile{
+    padding:14px; /* Memberikan ruang di dalam area profil */
+    margin-top:15px; /* Memberikan jarak di atas profil */
+    border-top:1px solid rgba(255,255,255,.1); /* Memberikan garis pemisah di atas profil */
+}
+
+/* Mengatur tampilan link untuk membuka website publik */
+.sidebar-website-link{
+    display:flex; /* Menyusun ikon dan tulisan secara fleksibel */
+    align-items:center; /* Menyejajarkan ikon dan tulisan secara vertikal */
+    gap:10px; /* Memberikan jarak antara ikon dan tulisan */
+    padding:10px 12px; /* Memberikan ruang di dalam link */
+    border-radius:9px; /* Membulatkan sudut link */
+    color:#fff; /* Membuat tulisan berwarna putih */
+    background:rgba(255,255,255,.08); /* Memberikan latar putih transparan */
+}
+
+/* Mengubah latar link website saat diarahkan */
+.sidebar-website-link:hover{
+    background:rgba(255,255,255,.16); /* Membuat latar lebih terang */
+    color:#fff; /* Mempertahankan tulisan berwarna putih */
+}
+
+/* =========================================================
+   5. SIDEBAR MINIMIZED
+   ========================================================= */
+
+body.sidebar-minimized .sidebar-wrapper{width:75px}
+body.sidebar-minimized .main-wrapper{margin-left:75px}
+
+body.sidebar-minimized .sidebar-brand{
+    justify-content:center;
+    padding:10px;
+}
+
+body.sidebar-minimized .sidebar-brand span,
+body.sidebar-minimized .sidebar-menu-title,
+body.sidebar-minimized .sidebar-menu-link span,
+body.sidebar-minimized .sidebar-dropdown .caret,
+body.sidebar-minimized .sidebar-website-link span{
+    display:none;
+}
+
+body.sidebar-minimized .sidebar-menu-link{
+    justify-content:center;
+}
+
+body.sidebar-minimized .sidebar-website-link{
+    justify-content:center;
+}
+
+
+/* =========================================================
+   6. NAVBAR
+   ========================================================= */
+
+/* =========================================================
+   6. NAVBAR ADMIN
+   ========================================================= */
+
+/* Mengatur tampilan utama navbar admin */
+.navbar-custom{
+    height:var(--navbar-height); /* Mengatur tinggi navbar sesuai variabel */
+    background:#fff; /* Memberikan latar putih */
+    border-bottom:1px solid var(--border-light); /* Memberikan garis pemisah di bawah navbar */
+    padding:0 25px; /* Memberikan jarak kiri dan kanan navbar */
+    display:flex; /* Menyusun elemen navbar secara fleksibel */
+    align-items:center; /* Menyejajarkan isi navbar secara vertikal */
+    justify-content:space-between; /* Memisahkan bagian kiri dan kanan navbar */
+    position:sticky; /* Membuat navbar tetap menempel saat halaman digulir */
+    top:0; /* Menempatkan navbar pada bagian atas */
+    z-index:1020; /* Mengatur lapisan navbar agar tampil di atas konten */
+}
+
+/* Mengatur tata letak bagian kiri navbar */
+.navbar-left{
+    display:flex; /* Menyusun elemen secara fleksibel */
+    align-items:center; /* Menyejajarkan elemen secara vertikal */
+    gap:10px; /* Memberikan jarak antar elemen */
+}
+
+/* Mengatur ukuran, bentuk, warna, dan posisi ikon tombol navbar */
+.btn-desktop-toggle,
+.sidebar-toggle-btn,
+.navbar-action-btn{
+    width:40px; /* Menentukan lebar tombol */
+    height:40px; /* Menentukan tinggi tombol */
+    border:0; /* Menghilangkan garis tepi tombol */
+    border-radius:9px; /* Membulatkan sudut tombol */
+    background:#F1F5F9; /* Memberikan latar abu-abu muda */
+    color:var(--primary); /* Menggunakan warna utama untuk ikon */
+    display:flex; /* Menyusun isi tombol secara fleksibel */
+    align-items:center; /* Memusatkan isi secara vertikal */
+    justify-content:center; /* Memusatkan isi secara horizontal */
+}
+
+/* Mengubah latar dan warna ikon tombol ketika diarahkan */
+.btn-desktop-toggle:hover,
+.sidebar-toggle-btn:hover,
+.navbar-action-btn:hover{
+    background:var(--soft); /* Mengubah latar tombol saat hover */
+    color:var(--primary); /* Mempertahankan warna ikon utama */
+}
+
+/* Mengatur susunan tombol aksi di navbar */
+.navbar-actions{
+    display:flex; /* Menyusun tombol aksi secara horizontal */
+    align-items:center; /* Menyejajarkan tombol secara vertikal */
+    gap:8px; /* Memberikan jarak antar tombol */
+}
+
+/* Mengatur tampilan tombol profil pengguna pada navbar */
+.navbar-profile-btn{
+    display:flex; /* Menyusun foto profil dan informasi pengguna */
+    align-items:center; /* Menyejajarkan isi secara vertikal */
+    gap:9px; /* Memberikan jarak antar elemen */
+    border:0; /* Menghilangkan garis tepi tombol */
+    background:none; /* Menghilangkan latar bawaan tombol */
+    padding:5px 8px; /* Memberikan ruang di dalam tombol */
+    border-radius:10px; /* Membulatkan sudut tombol */
+    cursor:pointer; /* Menampilkan kursor penunjuk */
+}
+
+/* Memberikan latar pada tombol profil ketika diarahkan */
+.navbar-profile-btn:hover{background:#F1F5F9}
+
+/* Mengatur ukuran dan bentuk foto profil pada navbar */
+.navbar-profile-img{
+    width:38px; /* Mengatur lebar foto */
+    height:38px; /* Mengatur tinggi foto */
+    border-radius:50%; /* Membuat foto berbentuk lingkaran */
+    object-fit:cover; /* Memenuhi area foto tanpa mengubah proporsi */
+}
+
+/* Mengatur warna dan ketebalan nama pengguna pada navbar */
+.navbar-profile-name{
+    color:var(--primary); /* Menggunakan warna utama */
+    font-weight:600; /* Membuat tulisan agak tebal */
+}
+
+/* Mengatur warna dan ukuran tanda panah dropdown profil */
+.navbar-profile-caret{
+    color:var(--muted); /* Menggunakan warna teks sekunder */
+    font-size:12px; /* Mengatur ukuran tanda panah */
+}
+
+
+/* =========================================================
+   7. DROPDOWN PROFILE
+   ========================================================= */
+
+/* Mengatur tampilan menu dropdown profil pengguna */
+.dropdown-menu-profile{
+    min-width:210px; /* Menentukan lebar minimum dropdown */
+    padding:8px; /* Memberikan ruang di dalam dropdown */
+    border:1px solid var(--border-light); /* Memberikan garis tepi dropdown */
+    border-radius:12px; /* Membulatkan sudut dropdown */
+    background:#fff; /* Memberikan latar putih */
+    box-shadow:0 8px 25px rgba(0,0,0,.08); /* Memberikan bayangan dropdown */
+}
+
+/* Mengatur susunan dan tampilan link serta tombol dropdown profil */
+.dropdown-menu-profile a,
+.dropdown-menu-profile button{
+    display:flex; /* Menyusun ikon dan teks secara fleksibel */
+    align-items:center; /* Menyejajarkan isi secara vertikal */
+    gap:10px; /* Memberikan jarak antara ikon dan teks */
+    width:100%; /* Membuat elemen memenuhi lebar dropdown */
+    padding:10px 12px; /* Memberikan ruang di dalam pilihan menu */
+    border:0; /* Menghilangkan garis tepi */
+    background:none; /* Menghilangkan latar bawaan */
+    border-radius:8px; /* Membulatkan sudut pilihan menu */
+    color:#334155; /* Mengatur warna teks menu */
+    text-align:left; /* Meratakan teks ke kiri */
+}
+
+/* Mengubah latar dan warna teks pilihan dropdown ketika diarahkan */
+.dropdown-menu-profile a:hover,
+.dropdown-menu-profile button:hover{
+    background:#F1F5F9; /* Memberikan latar abu-abu muda */
+    color:var(--primary); /* Mengubah teks menjadi warna utama */
+}
+
+
+/* =========================================================
+   8. UMUM ADMIN
+   ========================================================= */
+
+/* Mengatur warna judul pada halaman admin */
+.admin-title{color:var(--primary)}
+
+/* Mengatur warna ikon pada halaman admin */
+.admin-icon{color:var(--primary)}
+
+/* Mengatur warna latar dan teks pada elemen penghitung data */
+.admin-count{
+    background:var(--soft); /* Memberikan latar warna lembut */
+    color:var(--primary-light); /* Memberikan warna teks utama yang lebih muda */
+}
+
+/* Mengatur warna latar dan teks pada badge admin */
+.admin-badge{
+    background:#EEF5F4; /* Memberikan latar hijau keabu-abuan muda */
+    color:var(--primary-light); /* Memberikan warna teks utama yang lebih muda */
+}
+
+/* Mengatur tampilan ketika data belum tersedia */
+.empty-data{
+    padding:30px; /* Memberikan ruang di sekitar pesan */
+    text-align:center; /* Memusatkan pesan */
+    color:var(--muted);
+}
+/* =========================================================
+   11. UPLOAD FOTO PROFIL
+   ========================================================= */
+
+/* Menjadi wadah untuk foto profil dan tombol upload */
+.profile-upload{
+    position:relative; /* Menjadi acuan posisi tombol upload */
+    display:inline-block; /* Membuat wadah mengikuti ukuran isinya */
+}
+
+/* Mengatur ukuran dan bentuk foto profil yang diunggah */
+.profile-upload-img{
+    width:130px; /* Mengatur lebar foto */
+    height:130px; /* Mengatur tinggi foto */
+    object-fit:cover; /* Memenuhi area foto tanpa mengubah proporsi */
+    border-radius:50%; /* Membuat foto berbentuk lingkaran */
+    border:5px solid #fff; /* Memberikan bingkai putih pada foto */
+    box-shadow:0 4px 12px rgba(0,0,0,.15); /* Memberikan bayangan pada foto */
+}
+
+/* Mengatur tampilan pengganti foto jika foto belum tersedia */
+.profile-default{
+    display:flex; /* Mengaktifkan flexbox untuk memusatkan ikon */
+    align-items:center; /* Memusatkan ikon secara vertikal */
+    justify-content:center; /* Memusatkan ikon secara horizontal */
+    background:#EEF3F8; /* Memberikan latar abu-abu kebiruan */
+    color:#6C8BA8; /* Mengatur warna ikon pengganti */
+    font-size:50px; /* Mengatur ukuran ikon */
+}
+
+/* Mengatur tombol upload foto pada bagian bawah foto profil */
+.profile-upload-btn{
+    position:absolute; /* Memungkinkan tombol ditempatkan di atas foto */
+    right:0; /* Meletakkan tombol di sisi kanan */
+    bottom:0; /* Meletakkan tombol di bagian bawah */
+    width:40px; /* Mengatur lebar tombol */
+    height:40px; /* Mengatur tinggi tombol */
+    border-radius:50%; /* Membuat tombol berbentuk lingkaran */
+    background:var(--primary); /* Menggunakan warna utama sebagai latar */
+    color:#fff; /* Membuat ikon tombol berwarna putih */
+    border:3px solid #fff; /* Memberikan bingkai putih pada tombol */
+    display:flex; /* Menggunakan flexbox untuk ikon */
+    align-items:center; /* Memusatkan ikon secara vertikal */
+    justify-content:center; /* Memusatkan ikon secara horizontal */
+    cursor:pointer; /* Menampilkan kursor penunjuk */
+}
+
+/* Mengubah warna latar tombol upload saat diarahkan */
+.profile-upload-btn:hover{background:#1D3D5D}
+
+
+/* =========================================================
+   12. PROFIL SEKOLAH
+   ========================================================= */
+
+/* Mengatur tampilan kotak informasi profil sekolah */
+.profil-box{
+    background:#F8FAFC; /* Memberikan latar abu-abu sangat muda */
+    border:1px solid #EDF1F5; /* Memberikan garis tepi tipis */
+    border-radius:14px; /* Membulatkan sudut kotak */
+    padding:15px 17px; /* Memberikan ruang di dalam kotak */
+}
+
+/* Mengatur ukuran, bentuk, dan posisi ikon profil sekolah */
+.profil-icon{
+    width:42px; /* Mengatur lebar ikon */
+    height:42px; /* Mengatur tinggi ikon */
+    border-radius:12px; /* Membulatkan sudut wadah ikon */
+    background:#EAF3FA; /* Memberikan latar biru muda */
+    color:var(--primary); /* Menggunakan warna utama untuk ikon */
+    display:flex; /* Menggunakan flexbox untuk ikon */
+    align-items:center; /* Memusatkan ikon secara vertikal */
+    justify-content:center; /* Memusatkan ikon secara horizontal */
+}
+
+/* Mengatur latar, garis tepi, dan sudut kotak foto profil sekolah */
+.profil-photo-box{
+    background:#F7FAFC; /* Memberikan latar abu-abu kebiruan */
+    border:1px solid #EDF1F5; /* Memberikan garis tepi tipis */
+    border-radius:18px; /* Membulatkan sudut kotak foto */
+}
+
+/* Mengatur kotak isi informasi profil sekolah */
+.profil-content-box{
+    background:#F8FAFC; /* Memberikan latar abu-abu sangat muda */
+    border:1px solid #EDF1F5; /* Memberikan garis tepi tipis */
+    border-left:4px solid var(--primary); /* Memberikan garis aksen di sisi kiri */
+    border-radius:12px; /* Membulatkan sudut kotak */
+    padding:18px; /* Memberikan ruang di dalam kotak */
+    line-height:1.8; /* Mengatur jarak antarbaris teks */
+    white-space:pre-line; /* Mempertahankan baris baru pada teks */
+}
+
+
+/* =========================================================
+   13. FOOTER
+   ========================================================= */
+
+/* Mengatur tampilan bagian footer pada halaman admin */
+.site-footer{
+    padding:20px 25px; /* Memberikan ruang di dalam footer */
+    background:#3368A0; /* Memberikan latar biru */
+    color:#fff; /* Membuat tulisan footer berwarna putih */
+    font-size:13px; /* Mengatur ukuran teks footer */
+    text-align:center; /* Memusatkan teks footer */
+}
+
+/* =========================================================
+   PROFIL PENGGUNA
+   ========================================================= */
+
+/* Mengatur lebar dan posisi judul halaman profil */
+.profile-page-title{
+    max-width:550px;
+    margin:0 auto 24px;
+}
+
+/* Mengatur card utama profil pengguna */
+.profile-card{
+    width:100%;
+    max-width:550px;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+/* Mengatur header bagian atas card profil */
+.profile-header{
+    height:110px;
+    background:var(--primary);
+}
+
+/* Mengatur posisi foto profil agar bertumpuk dengan header */
+.profile-photo-wrapper{
+    margin-top:-55px;
+    text-align:center;
+}
+
+/* Mengatur ukuran dan bentuk foto profil */
+.profile-photo{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+/* Mengatur tampilan pengganti jika foto tidak tersedia */
+.profile-photo-default{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#EEF3F8;
+    color:#6C8BA8;
+    font-size:42px;
+}
+
+/* Mengatur jarak bagian data profil */
+.profile-data{
+    padding:25px 30px;
+}
+
+/* Menyusun label dan nilai profil secara sejajar */
+.profile-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:14px 0;
+    border-bottom:1px solid #EDF1F5;
+}
+
+/* Mengatur tampilan label data profil */
+.profile-label{
+    color:var(--primary);
+    font-weight:600;
+}
+
+/* Mengatur jarak ikon pada label profil */
+.profile-label i{
+    width:18px;
+    margin-right:8px;
+}
+
+/* Mengatur tampilan nilai data profil */
+.profile-value{
+    color:#555;
+    text-align:right;
+}
+
+/* Mengatur posisi tombol pada card profil */
+.profile-buttons{
+    display:flex;           /* Menyusun tombol secara sejajar */
+    justify-content:flex-end; /* Meletakkan tombol di sebelah kanan */
+    gap:10px;                /* Memberikan jarak 10px antar tombol */
+    margin-top:25px;         /* Memberikan jarak 25px di atas tombol */
+}
+
+/* Mengatur tampilan tombol edit profil */
+.profile-edit-btn{
+    background:var(--primary);
+    color:#fff;
+}
+
+/* Mengubah warna tombol edit ketika diarahkan */
+.profile-edit-btn:hover{
+    background:#1D3D5D;
+    color:#fff;
+}
+
+/* Mengatur tampilan tombol batal */
+.profile-cancel-btn{
+    background:#F1F5F9;
+    color:#555;
+}
+
+/* Membulatkan sudut modal edit profil */
+.profile-modal{
+    border-radius:18px;
+}
+
+/* Mengatur scrollbar sidebar agar tipis, putih, dan transparan */
+.sidebar-wrapper{
+    scrollbar-width:thin;
+    scrollbar-color:rgba(255,255,255,.8) transparent;
+}
+
+/* Mengatur lebar scrollbar */
+.sidebar-wrapper::-webkit-scrollbar{
+    width:6px;
+}
+
+/* Menghilangkan kotak background di belakang scrollbar */
+.sidebar-wrapper::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+/* Mengubah batang scroll menjadi putih */
+.sidebar-wrapper::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.8);
+    border-radius:10px;
+}
+
+/* Membuat batang scroll putih penuh saat diarahkan */
+.sidebar-wrapper::-webkit-scrollbar-thumb:hover{
+    background:#fff;
+}
+
+
+/* =========================================================
+   14. RESPONSIVE
+   ========================================================= */
+
+/* Menyesuaikan tampilan admin untuk layar maksimal 1199px */
+@media(max-width:1199px){
+
+    /* Menghilangkan jarak kiri untuk menyesuaikan sidebar pada layar kecil */
+    .main-wrapper{
+        margin-left:0;
+    }
+
+    /* Menyembunyikan sidebar ke sisi kiri layar */
+    .sidebar-wrapper{
+        transform:translateX(-100%); /* Menggeser sidebar keluar dari layar */
+        z-index:1050; /* Menempatkan sidebar di lapisan atas saat dibuka */
+    }
+
+    /* Menampilkan sidebar ketika memiliki class show */
+    .sidebar-wrapper.show{
+        transform:translateX(0); /* Menggeser sidebar kembali ke layar */
+    }
+
+    /* Menghilangkan jarak sidebar pada layout yang diminimalkan */
+    body.sidebar-minimized .main-wrapper{
+        margin-left:0;
+    }
+}
+
+/* Menyesuaikan tampilan admin untuk layar maksimal 991px */
+@media(max-width:991px){
+
+    /* Mengurangi jarak di dalam konten utama */
+    .main-content{padding:20px}
+
+    /* Mengurangi jarak di dalam area konten halaman */
+    .page-content{padding:20px}
+
+    /* Memungkinkan tabel digulir secara horizontal jika terlalu lebar */
+    .table-responsive{
+        overflow-x:auto; /* Mengaktifkan scroll horizontal */
+        -webkit-overflow-scrolling:touch; /* Menghaluskan scroll pada perangkat yang mendukung */
+    }
+}
+
+/* Menyesuaikan tampilan admin untuk layar maksimal 767px */
+@media(max-width:767px){
+
+    /* Mengurangi jarak konten pada layar HP */
+    .main-content,.page-content{
+        padding:15px;
+    }
+
+    /* Mengurangi jarak kiri dan kanan navbar pada HP */
+    .navbar-custom{
+        padding:0 15px;
+    }
+
+    /* Menyembunyikan nama profil agar navbar lebih ringkas */
+    .navbar-profile-name{
+        display:none;
+    }
+
+    /* Menyusun informasi profil menjadi vertikal */
+    .profile-row{
+        display:block;
+    }
+
+    /* Meratakan nilai profil ke kiri pada layar HP */
+    .profile-value{
+        text-align:left;
+        margin-top:5px; /* Memberikan jarak di atas nilai */
+    }
+
+    /* Memusatkan tombol pada halaman profil HP */
+    .profile-buttons{
+        justify-content:center;
+    }
+}
+
+/* Menyesuaikan tampilan admin untuk layar maksimal 575px */
+@media(max-width:575px){
+
+    /* Mengurangi jarak konten untuk layar HP kecil */
+    .main-content,.page-content{
+        padding:12px;
+    }
+
+    /* Menyesuaikan tinggi dan jarak navbar pada HP kecil */
+    .navbar-custom{
+        height:60px; /* Mengatur tinggi navbar */
+        padding:0 12px; /* Mengatur jarak kiri dan kanan */
+    }
+
+    /* Mengurangi ruang dalam card Bootstrap pada HP kecil */
+    .card-body{
+        padding:15px!important;
+    }
+
+    /* Mengurangi jarak dalam area data profil pada HP kecil */
+    .profile-data{
+        padding:20px;
+    }
+
+    /* Mengurangi ruang dalam card login pada HP kecil */
+    .login-card{
+        padding:1.5rem;
+    }
+}

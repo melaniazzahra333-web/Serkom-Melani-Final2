@@ -1,0 +1,34 @@
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+class Guru extends Model
+{
+    protected $table = 'guru';
+    protected $primaryKey = 'id_guru';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'id_guru','nama_guru','nip','mapel','jabatan','foto'
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($guru) {
+            $guru->id_guru = (string) Str::uuid();
+        });
+    }
+
+    protected static function booted()
+{
+    static::saving(function ($guru) {
+        if (empty($guru->slug) || $guru->isDirty('nama_guru')) {
+            $guru->slug = Str::slug($guru->nama_guru);
+        }
+    });
+}
+}
